@@ -1,21 +1,31 @@
-class User {
-  #name;
-  constructor(name) {
-    this.#name = name;
+class Person {
+  constructor(name, family, age) {
+    this.name = name;
+    this.family = family;
+    this.age = age;
   }
 
-  get Name() {
-    return this.#name;
+  printInfo() {
+    console.log(`Name: ${this.name}, Family: ${this.family}, Age: ${this.age}`);
   }
-  set Name(name) {
-    if (!name) {
-      console.log("Error");
-    } else {
-      this.#name = name;
-    }
+}
+class User extends Person {
+  constructor(name, family, age, isActive, role) {
+    super(name, family, age);
+    this.isActive = isActive;
+    this.role = role;
+  }
+
+  printInfo() {
+    console.log(
+      `Name: ${this.name}, Family: ${this.family}, Age: ${this.age}, IsActive: ${this.isActive}, Role: ${this.role}`
+    );
   }
 }
 
-const user1 = new User("Sadegh");
+const person1 = new Person("Sadegh", "Ghasemi", 18);
 
-console.log(user1.getName);
+person1.printInfo();
+
+const user = new User("Ahmad", "Alizade", 18, true, "Admin");
+user.printInfo();
