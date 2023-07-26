@@ -16,10 +16,11 @@ class User extends Person {
     this.role = role;
   }
 
-  printInfo() {
+  printInfo(s = "Sadeh") {
     console.log(
       `Name: ${this.name}, Family: ${this.family}, Age: ${this.age}, IsActive: ${this.isActive}, Role: ${this.role}`
     );
+    console.log(s);
   }
 }
 
@@ -28,4 +29,4 @@ const person1 = new Person("Sadegh", "Ghasemi", 18);
 person1.printInfo();
 
 const user = new User("Ahmad", "Alizade", 18, true, "Admin");
-user.printInfo();
+user.printInfo(123);
