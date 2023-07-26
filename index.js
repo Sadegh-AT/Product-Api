@@ -1,9 +1,9 @@
-// Try-Catch-Finally
+let a = 0;
+let x = setInterval(() => {
+  a += 1;
+  console.log("Sadegh: " + a);
+}, 10);
 
-try {
-  let a = 1;
-  throw { mesage: "dawdawd" };
-  console.log(a);
-} catch (error) {
-  console.log(error.mesage);
-}
+setTimeout(function () {
+  clearInterval(x);
+}, 2000);
