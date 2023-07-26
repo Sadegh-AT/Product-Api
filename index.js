@@ -1,35 +1,9 @@
-class Person {
-  constructor(name, family, age) {
-    this.name = name;
-    this.family = family;
-    this.age = age;
-  }
+// Try-Catch-Finally
 
-  printInfo() {
-    console.log(`Name: ${this.name}, Family: ${this.family}, Age: ${this.age}`);
-  }
-  static printClassname() {
-    console.log(this.name);
-  }
+try {
+  let a = 1;
+  throw { mesage: "dawdawd" };
+  console.log(a);
+} catch (error) {
+  console.log(error.mesage);
 }
-class User extends Person {
-  constructor(name, family, age, isActive, role) {
-    super(name, family, age);
-    this.isActive = isActive;
-    this.role = role;
-  }
-
-  printInfo(s = "Sadeh") {
-    console.log(
-      `Name: ${this.name}, Family: ${this.family}, Age: ${this.age}, IsActive: ${this.isActive}, Role: ${this.role}`
-    );
-    console.log(s);
-  }
-}
-
-const person1 = new Person("Sadegh", "Ghasemi", 18);
-
-person1.printInfo();
-
-const user = new User("Ahmad", "Alizade", 18, true, "Admin");
-user.printInfo(123);
