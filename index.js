@@ -8,6 +8,9 @@ class Person {
   printInfo() {
     console.log(`Name: ${this.name}, Family: ${this.family}, Age: ${this.age}`);
   }
+  static printClassname() {
+    console.log(this.name);
+  }
 }
 class User extends Person {
   constructor(name, family, age, isActive, role) {
