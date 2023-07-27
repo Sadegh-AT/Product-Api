@@ -1,14 +1,15 @@
-const product = require("../data/product.json");
+const products = require("../data/product.json");
 
 async function find() {
   return new Promise((res, rej) => {
-    res(product);
+    res(products);
   });
 }
 async function create(product) {
   return new Promise((res, rej) => {
     try {
-      console.log(product);
+      products.push(product);
+
       console.log("New Product Add");
       res();
     } catch (error) {
