@@ -27,12 +27,10 @@
 //     console.clear();
 //     console.log(`run server on port ${PORT} http://localhost:${PORT}`);
 //   });
-console.clear();
 
 const fs = require("fs");
 
-fs.readFile("./test.txt", (err, data) => {
-  if (!err) {
-    console.log(data.toString());
-  }
+console.log("first");
+fs.unlink("./test.txt", (err) => {
 });
+console.log("last");
