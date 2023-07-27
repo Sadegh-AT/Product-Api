@@ -32,11 +32,18 @@ async function getImage(req, res) {
 async function getById(req, res) {
   try {
     const products = await ProductModel.find();
-    res.writeHead(200, { "Content-Type": "application/json" });
     let productId = req.url.split("/");
     let product = products.filter((item) => item.id == productId[3]);
-    res.end(JSON.stringify(...product, null, 4));
-  } catch (error) {}
+    if (product.length == 0) {
+      res.writeHead(400, { "Content-Type": "text/plain" });
+      res.end("Bad Request: " + productId[3]);
+    } else {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(...product, null, 4));
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Create New Product
