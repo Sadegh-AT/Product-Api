@@ -290,3 +290,4 @@ node_modules/yallist/package.json
 node_modules/yallist/README.md
 node_modules/yallist/yallist.js
 package-lock.json
+data/product.json 

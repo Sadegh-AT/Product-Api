@@ -1,5 +1,5 @@
 const products = require("../data/product.json");
-
+const fs = require("fs");
 async function get() {
   return new Promise((res, rej) => {
     res(products);
@@ -7,15 +7,20 @@ async function get() {
 }
 async function create(product) {
   return new Promise((res, rej) => {
-    try {
-      products.push(product);
-
-      console.log("New Product Add");
-      res();
-    } catch (error) {
-      console.log(error);
-      rej();
-    }
+    const a = fs.writeFile(
+      `${process.cwd()}/data/product.json`,
+      JSON.stringify(product),
+      {
+        encoding: "utf-8",
+      },
+      (err) => {
+        if (err) {
+          rej(err);
+        } else {
+          res({ message: "Create new Product" });
+        }
+      }
+    );
   });
 }
 

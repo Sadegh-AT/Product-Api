@@ -48,19 +48,25 @@ async function getById(req, res) {
 
 // Create New Product
 async function create(req, res) {
-  try {
-    const allProducts = await ProductModel.get();
-    const product = {
-      id: allProducts.length + 1,
-      name: `Product ${allProducts.length + 1}`,
-      image: "https://example.com/product1.jpg",
-      price: 29.99,
-      catagory: "B",
-    };
-    ProductModel.create(product);
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(product));
-  } catch (error) {}
+  let newProduct = "";
+  req
+    .on("data", (chunk) => {
+      newProduct += chunk.toString();
+    })
+    .on("end", async () => {
+      try {
+        const allProducts = await ProductModel.get();
+        const product = {
+          id: allProducts.length + 1,
+          ...JSON.parse(newProduct),
+        };
+        allProducts.push(product);
+        let resault = await ProductModel.create(allProducts);
+        res.writeHead(200, { "Content-Type": "application/json" });
+        console.log(resault);
+        res.end(JSON.stringify(product));
+      } catch (error) {}
+    });
 }
 // Get By Catagory
 async function getByCatagory(req, res) {
