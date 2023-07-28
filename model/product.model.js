@@ -52,10 +52,31 @@ async function update(payload, products) {
   });
 }
 
+// Delete
+async function deleteItem(products) {
+  return new Promise((res, rej) => {
+    const a = fs.writeFile(
+      `${process.cwd()}/data/product.json`,
+      JSON.stringify(products),
+      {
+        encoding: "utf-8",
+      },
+      (err) => {
+        if (err) {
+          rej(err);
+        } else {
+          res({ message: "Delete Product" });
+        }
+      }
+    );
+  });
+}
+
 const ProductModel = {
   get,
   create,
   update,
+  deleteItem,
 };
 
 module.exports = ProductModel;

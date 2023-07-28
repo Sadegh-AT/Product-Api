@@ -118,6 +118,35 @@ async function update(req, res) {
     });
 }
 
+// Delete Product
+async function deleteItem(req, res) {
+  let idList = "";
+  req
+    .on("data", (chunk) => {
+      idList += chunk.toString();
+    })
+    .on("end", async () => {
+      try {
+        if (idList.length == 0) {
+          throw new Error();
+        }
+        const allProducts = await ProductModel.get();
+        idList = JSON.parse(idList);
+        idList.forEach((id) => {
+          const index = allProducts.findIndex((item) => item.id === id);
+          if (index !== -1) {
+            allProducts.splice(index, 1);
+          }
+        });
+        res.writeHead(200, { "Content-Type": "application/json" });
+        await ProductModel.deleteItem(allProducts);
+        res.end(JSON.stringify(allProducts));
+      } catch (error) {
+        res.end("Error");
+      }
+    });
+}
+
 const ProductController = {
   get,
   getName,
@@ -126,6 +155,7 @@ const ProductController = {
   create,
   getByCatagory,
   update,
+  deleteItem,
 };
 
 module.exports = ProductController;
