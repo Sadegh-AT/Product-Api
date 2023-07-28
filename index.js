@@ -19,6 +19,11 @@ http
       ProductController.getById(req, res);
     } else if (req.url == "/api/product/new" && req.method == "POST") {
       ProductController.create(req, res);
+    } else if (
+      req.url.match(/^\/api\/product\/catagory\/[ab]$/) &&
+      req.method == "GET"
+    ) {
+      ProductController.getByCatagory(req, res);
     } else {
       ErrorHandler.NotFound(req, res);
     }

@@ -1,6 +1,6 @@
 const products = require("../data/product.json");
 
-async function find() {
+async function get() {
   return new Promise((res, rej) => {
     res(products);
   });
@@ -20,7 +20,7 @@ async function create(product) {
 }
 
 const ProductModel = {
-  find,
+  get,
   create,
 };
 
