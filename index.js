@@ -32,7 +32,14 @@ http
       req.method == "GET"
     ) {
       ProductController.getByCatagory(req, res);
-    } else {
+    }
+    // Update Product
+    else if (req.url == "/api/product/update" && req.method == "PUT") {
+      ProductController.update(req, res);
+    }
+
+    // Error handler
+    else {
       ErrorHandler.NotFound(req, res);
     }
   })

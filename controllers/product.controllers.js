@@ -90,6 +90,34 @@ async function getByCatagory(req, res) {
   }
 }
 
+// Update Product
+async function update(req, res) {
+  let newProduct = "";
+  req
+    .on("data", (chunk) => {
+      newProduct += chunk.toString();
+    })
+    .on("end", async () => {
+      try {
+        if (!newProduct) {
+          throw new Error();
+        }
+        const allProducts = await ProductModel.get();
+        newProduct = JSON.parse(newProduct);
+        const resault = allProducts.find((item) => item.id == newProduct.id);
+        if (resault) {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          await ProductModel.update(newProduct, allProducts);
+          res.end(JSON.stringify(newProduct));
+        } else {
+          res.end("We Dont have this Item");
+        }
+      } catch (error) {
+        res.end("please input body to your request");
+      }
+    });
+}
+
 const ProductController = {
   get,
   getName,
@@ -97,6 +125,7 @@ const ProductController = {
   getById,
   create,
   getByCatagory,
+  update,
 };
 
 module.exports = ProductController;
