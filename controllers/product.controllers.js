@@ -56,8 +56,9 @@ async function create(req, res) {
     .on("end", async () => {
       try {
         const allProducts = await ProductModel.get();
+        let newID = allProducts[allProducts.length - 1];
         const product = {
-          id: allProducts.length + 1,
+          id: newID.id + 1,
           ...JSON.parse(newProduct),
         };
         allProducts.push(product);
