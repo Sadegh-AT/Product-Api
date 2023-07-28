@@ -56,9 +56,9 @@ async function create(req, res) {
     .on("end", async () => {
       try {
         const allProducts = await ProductModel.get();
-        let newID = allProducts[allProducts.length - 1];
+
         const product = {
-          id: newID.id + 1,
+          id: generateID(allProducts),
           ...JSON.parse(newProduct),
         };
         allProducts.push(product);
@@ -160,3 +160,12 @@ const ProductController = {
 };
 
 module.exports = ProductController;
+
+function generateID(products) {
+  if (products.length != 0) {
+    let lastItem = products[products.length - 1];
+    return lastItem.id + 1;
+  } else {
+    return 1;
+  }
+}
