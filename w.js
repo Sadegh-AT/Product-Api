@@ -1,20 +1,13 @@
 let x = {
-  name: "sad",
-  image: 123,
-  price: 123,
+  id: 1,
+  name: "sawde",
 };
 
-console.log(Object.keys(x));
+let v = { name: "adwad" };
 
-function validateProduct(obj) {
-  let keysList = Object.keys(obj);
-  const condition =
-    keysList.length == 4 &&
-    keysList[0] == "name" &&
-    keysList[1] == "image" &&
-    keysList[2] == "price";
-    keysList[3] == "category";
-  return condition;
-}
+x = {
+  id: v.id ? v.id : x.id,
+  name: v.name ? v.name : x.name,
+};
 
-console.log(validateProduct(x));
+console.log(x);

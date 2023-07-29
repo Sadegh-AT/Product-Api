@@ -188,12 +188,25 @@ function validateProductCreate(obj) {
 }
 function validateProductUpdate(obj) {
   let keysList = Object.keys(obj);
-  const condition =
-    keysList.length == 5 &&
-    keysList[0] == "id" &&
-    keysList[1] == "name" &&
-    keysList[2] == "image" &&
-    keysList[3] == "price" &&
-    keysList[4] == "category";
-  return condition;
+  let secondCondition;
+  const firstCondition =
+    keysList.length >= 1 && keysList.length <= 5 && keysList[0] == "id";
+
+  if (firstCondition) {
+    keysList.shift();
+    secondCondition = keysList.every(
+      (keys) =>
+        keys == "name" ||
+        keys == "image" ||
+        keys == "price" ||
+        keys == "category"
+    );
+    if (secondCondition) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }

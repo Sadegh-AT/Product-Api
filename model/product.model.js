@@ -33,7 +33,16 @@ async function update(payload, products) {
   return new Promise((res, rej) => {
     let productIndex = products.findIndex((item) => item.id == payload.id);
     if (productIndex != -1) {
-      products[productIndex] = payload;
+      let newProduct = {
+        id: payload.id ? payload.id : products[productIndex].id,
+        name: payload.name ? payload.name : products[productIndex].name,
+        image: payload.image ? payload.image : products[productIndex].image,
+        price: payload.price ? payload.price : products[productIndex].price,
+        category: payload.category
+          ? payload.category
+          : products[productIndex].category,
+      };
+      products[productIndex] = newProduct;
       const a = fs.writeFile(
         `${process.cwd()}/data/product.json`,
         JSON.stringify(products),
