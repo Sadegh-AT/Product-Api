@@ -55,8 +55,10 @@ async function create(req, res) {
     })
     .on("end", async () => {
       try {
+        if (!validateProductCreate(JSON.parse(newProduct))) {
+          throw new Error();
+        }
         const allProducts = await ProductModel.get();
-
         const product = {
           id: generateID(allProducts),
           ...JSON.parse(newProduct),
@@ -66,7 +68,9 @@ async function create(req, res) {
         res.writeHead(200, { "Content-Type": "application/json" });
         console.log(resault);
         res.end(JSON.stringify(product));
-      } catch (error) {}
+      } catch (error) {
+        res.end("Please Check Pruduct Keys");
+      }
     });
 }
 // Get By Catagory
@@ -100,7 +104,8 @@ async function update(req, res) {
     })
     .on("end", async () => {
       try {
-        if (!newProduct) {
+        console.log(newProduct);
+        if (!validateProductUpdate(JSON.parse(newProduct))) {
           throw new Error();
         }
         const allProducts = await ProductModel.get();
@@ -114,6 +119,7 @@ async function update(req, res) {
           res.end("We Dont have this Item");
         }
       } catch (error) {
+        console.log(error);
         res.end("please input body to your request");
       }
     });
@@ -168,4 +174,26 @@ function generateID(products) {
   } else {
     return 1;
   }
+}
+
+function validateProductCreate(obj) {
+  let keysList = Object.keys(obj);
+  const condition =
+    keysList.length == 4 &&
+    keysList[0] == "name" &&
+    keysList[1] == "image" &&
+    keysList[2] == "price" &&
+    keysList[3] == "category";
+  return condition;
+}
+function validateProductUpdate(obj) {
+  let keysList = Object.keys(obj);
+  const condition =
+    keysList.length == 5 &&
+    keysList[0] == "id" &&
+    keysList[1] == "name" &&
+    keysList[2] == "image" &&
+    keysList[3] == "price" &&
+    keysList[4] == "category";
+  return condition;
 }
