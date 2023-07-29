@@ -73,19 +73,19 @@ async function create(req, res) {
       }
     });
 }
-// Get By Catagory
-async function getByCatagory(req, res) {
+// Get By category
+async function getByCategory(req, res) {
   try {
     const products = await ProductModel.get();
-    let productCatagory = req.url.split("/")[4];
+    let productCategory = req.url.split("/")[4];
 
     let product = products.filter(
-      (item) => item.catagory == productCatagory.toUpperCase()
+      (item) => item.category == productCategory.toUpperCase()
     );
     console.log(product);
     if (product.length == 0) {
       res.writeHead(400, { "Content-Type": "text/plain" });
-      res.end("We dont have this catagory: " + productCatagory);
+      res.end("We dont have this category: " + productCategory);
     } else {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(product, null, 4));
@@ -160,7 +160,7 @@ const ProductController = {
   getImage,
   getById,
   create,
-  getByCatagory,
+  getByCategory,
   update,
   deleteItem,
 };

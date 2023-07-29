@@ -28,10 +28,10 @@ http
     }
     // Get Product By Catagory
     else if (
-      req.url.match(/^\/api\/product\/catagory\/[ab]$/) &&
+      req.url.match(/^\/api\/product\/category\/[ab]$/) &&
       req.method == "GET"
     ) {
-      ProductController.getByCatagory(req, res);
+      ProductController.getByCategory(req, res);
     }
     // Update Product
     else if (req.url == "/api/product/update" && req.method == "PUT") {
