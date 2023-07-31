@@ -10,25 +10,25 @@ http://localhost:3000
 
 #### Get All Products
 
-```http
+```bash
   GET /api/product
 ```
 
 #### Get Products Name
 
-```http
+```bash
   GET /api/product/name
 ```
 
 #### Get Products Image
 
-```http
+```bash
   GET /api/product/image
 ```
 
 #### Get Product By Id
 
-```http
+```bash
   GET /api/product/:id
 ```
 
@@ -38,7 +38,7 @@ http://localhost:3000
 
 #### Get Products By Category
 
-```http
+```bash
   GET /api/product/category/:category
 ```
 
@@ -48,7 +48,7 @@ http://localhost:3000
 
 #### Create New Product
 
-```http
+```bash
   POST /api/users/new-user
 ```
 
@@ -67,7 +67,7 @@ Request Body:
 
 #### Update Product
 
-```http
+```bash
   PUT /api/product/update
 ```
 
@@ -85,7 +85,7 @@ To update a product, ensure you include the product ID and the specific fields y
 
 #### Delete Product
 
-```http
+```bash
   DELETE /api/product/delete
 ```
 
