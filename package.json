@@ -4,7 +4,7 @@
   "description": "this is my first node package",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon node index.js"
+    "start": "nodemon node ./server.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,4 @@
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
- 
 }
