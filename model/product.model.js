@@ -1,6 +1,7 @@
 const products = require("../data/product.json");
 const fs = require("fs");
 const ConnectToMongoDB = require("../utils/mongo-connection");
+const { ObjectId } = require("mongodb");
 
 // Get
 async function get() {
@@ -22,35 +23,19 @@ async function create(product) {
 }
 
 // Update
-async function update(payload, products) {
+async function update(payload) {
+  const db = await new ConnectToMongoDB().getDB();
+  const { id, ...payloadWithoutID } = payload;
+
   return new Promise((res, rej) => {
-    let productIndex = products.findIndex((item) => item.id == payload.id);
-    if (productIndex != -1) {
-      let newProduct = {
-        id: payload.id ? payload.id : products[productIndex].id,
-        name: payload.name ? payload.name : products[productIndex].name,
-        image: payload.image ? payload.image : products[productIndex].image,
-        price: payload.price ? payload.price : products[productIndex].price,
-        category: payload.category
-          ? payload.category
-          : products[productIndex].category,
-      };
-      products[productIndex] = newProduct;
-      const a = fs.writeFile(
-        `${process.cwd()}/data/product.json`,
-        JSON.stringify(products),
-        {
-          encoding: "utf-8",
-        },
-        (err) => {
-          if (err) {
-            rej(err);
-          } else {
-            res({ message: "Update Product" });
-          }
-        }
+    let product = db
+      .collection("products")
+      .findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: { ...payloadWithoutID } }
       );
-    }
+    new ConnectToMongoDB().closeDB();
+    res(product);
   });
 }
 

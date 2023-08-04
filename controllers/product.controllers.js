@@ -106,16 +106,12 @@ async function update(req, res) {
         if (!validateProductUpdate(JSON.parse(newProduct))) {
           throw new Error();
         }
-        const allProducts = await ProductModel.get();
         newProduct = JSON.parse(newProduct);
-        const resault = allProducts.find((item) => item.id == newProduct.id);
-        if (resault) {
-          res.writeHead(200, { "Content-Type": "application/json" });
-          await ProductModel.update(newProduct, allProducts);
-          res.end(JSON.stringify(newProduct));
-        } else {
-          res.end("We Dont have this Item");
-        }
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        await ProductModel.update(newProduct);
+        res.end(JSON.stringify(newProduct));
+  
       } catch (error) {
         console.log(error);
         res.end("please input body to your request");
@@ -186,7 +182,8 @@ function validateProductCreate(obj) {
 function validateProductUpdate(obj) {
   let keysList = Object.keys(obj);
   let secondCondition;
-  const firstCondition = keysList.length >= 1 && keysList.length <= 5;
+  const firstCondition =
+    keysList.length >= 1 && keysList.length <= 5 && keysList[0] == "id";
 
   if (firstCondition) {
     keysList.shift();
