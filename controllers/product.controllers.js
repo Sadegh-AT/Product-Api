@@ -60,11 +60,9 @@ async function create(req, res) {
         }
         const allProducts = await ProductModel.get();
         const product = {
-          id: generateID(allProducts),
           ...JSON.parse(newProduct),
         };
-        allProducts.push(product);
-        let resault = await ProductModel.create(allProducts);
+        let resault = await ProductModel.create(product);
         res.writeHead(200, { "Content-Type": "application/json" });
         console.log(resault);
         res.end(JSON.stringify(product));
@@ -179,7 +177,6 @@ function generateID(products) {
 function validateProductCreate(obj) {
   let keysList = Object.keys(obj);
   const condition =
-    keysList.length == 4 &&
     keysList[0] == "name" &&
     keysList[1] == "image" &&
     keysList[2] == "price" &&
@@ -189,8 +186,7 @@ function validateProductCreate(obj) {
 function validateProductUpdate(obj) {
   let keysList = Object.keys(obj);
   let secondCondition;
-  const firstCondition =
-    keysList.length >= 1 && keysList.length <= 5 && keysList[0] == "id";
+  const firstCondition = keysList.length >= 1 && keysList.length <= 5;
 
   if (firstCondition) {
     keysList.shift();

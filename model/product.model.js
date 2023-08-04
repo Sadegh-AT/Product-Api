@@ -13,21 +13,11 @@ async function get() {
 
 // Create
 async function create(product) {
+  const db = await new ConnectToMongoDB().getDB();
+
   return new Promise((res, rej) => {
-    const a = fs.writeFile(
-      `${process.cwd()}/data/product.json`,
-      JSON.stringify(product),
-      {
-        encoding: "utf-8",
-      },
-      (err) => {
-        if (err) {
-          rej(err);
-        } else {
-          res({ message: "Create new Product" });
-        }
-      }
-    );
+    db.collection("products").insertOne(product);
+    res(db.collection("products").insertOne(product));
   });
 }
 
