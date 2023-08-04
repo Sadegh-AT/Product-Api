@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 class ConnectToMongoDB {
-  #DB_URL = "mongodb://0.0.0.0:27017/firstdb";
+  #DB_URL = "mongodb://0.0.0.0:27017/products";
   #db = null;
 
   async #connect() {
