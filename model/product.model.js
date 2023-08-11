@@ -18,7 +18,7 @@ async function create(product) {
 
   return new Promise((res, rej) => {
     db.collection("products").insertOne(product);
-    res(db.collection("products").insertOne(product));
+    res(product);
   });
 }
 

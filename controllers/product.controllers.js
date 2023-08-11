@@ -111,7 +111,6 @@ async function update(req, res) {
         res.writeHead(200, { "Content-Type": "application/json" });
         await ProductModel.update(newProduct);
         res.end(JSON.stringify(newProduct));
-  
       } catch (error) {
         console.log(error);
         res.end("please input body to your request");

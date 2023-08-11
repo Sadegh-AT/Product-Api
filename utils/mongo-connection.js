@@ -30,6 +30,8 @@ class ConnectToMongoDB {
     try {
       if (this.#db) {
         this.#db.close();
+      } else {
+        console.log("Cnat Close");
       }
     } catch (error) {
       console.log(error.message);
