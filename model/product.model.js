@@ -40,22 +40,16 @@ async function update(payload) {
 }
 
 // Delete
-async function deleteItem(products) {
+async function deleteItem(idList) {
+  const db = await new ConnectToMongoDB().getDB();
+  for (let index = 0; index < idList.length; index++) {
+    let resault = await db
+      .collection("products")
+      .findOneAndDelete({ _id: new ObjectId(idList[index]) });
+    console.log(resault);
+  }
   return new Promise((res, rej) => {
-    const a = fs.writeFile(
-      `${process.cwd()}/data/product.json`,
-      JSON.stringify(products),
-      {
-        encoding: "utf-8",
-      },
-      (err) => {
-        if (err) {
-          rej(err);
-        } else {
-          res({ message: "Delete Product" });
-        }
-      }
-    );
+    res("All item Deleted");
   });
 }
 

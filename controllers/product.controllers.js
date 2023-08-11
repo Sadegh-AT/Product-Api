@@ -130,19 +130,13 @@ async function deleteItem(req, res) {
         if (idList.length == 0) {
           throw new Error();
         }
-        const allProducts = await ProductModel.get();
         idList = JSON.parse(idList);
-        idList.forEach((id) => {
-          const index = allProducts.findIndex((item) => item.id === id);
-          if (index !== -1) {
-            allProducts.splice(index, 1);
-          }
-        });
+
         res.writeHead(200, { "Content-Type": "application/json" });
-        await ProductModel.deleteItem(allProducts);
-        res.end(JSON.stringify(allProducts));
+        await ProductModel.deleteItem(idList);
+        res.end("deleted");
       } catch (error) {
-        res.end("Error");
+        res.end(error.message);
       }
     });
 }
