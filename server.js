@@ -41,6 +41,10 @@ http
     else if (req.url == "/api/product/delete" && req.method == "DELETE") {
       ProductController.deleteItem(req, res);
     }
+    // Delete All Product
+    else if (req.url == "/api/product/delete/all" && req.method == "DELETE") {
+      ProductController.deleteAll(req, res);
+    }
 
     // Error handler
     else {

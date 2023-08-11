@@ -42,11 +42,16 @@ async function update(payload) {
 // Delete
 async function deleteItem(idList) {
   const db = await new ConnectToMongoDB().getDB();
-  for (let index = 0; index < idList.length; index++) {
-    let resault = await db
-      .collection("products")
-      .findOneAndDelete({ _id: new ObjectId(idList[index]) });
+  if (idList == "deleteAll") {
+    const resault = await db.collection("products").deleteMany({});
     console.log(resault);
+  } else {
+    for (let index = 0; index < idList.length; index++) {
+      let resault = await db
+        .collection("products")
+        .findOneAndDelete({ _id: new ObjectId(idList[index]) });
+      console.log(resault);
+    }
   }
   return new Promise((res, rej) => {
     res("All item Deleted");

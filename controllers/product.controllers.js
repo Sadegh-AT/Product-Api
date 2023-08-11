@@ -140,6 +140,15 @@ async function deleteItem(req, res) {
       }
     });
 }
+async function deleteAll(req, res) {
+  try {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    await ProductModel.deleteItem("deleteAll");
+    res.end("deletedAll");
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 const ProductController = {
   get,
@@ -150,6 +159,7 @@ const ProductController = {
   getByCategory,
   update,
   deleteItem,
+  deleteAll,
 };
 
 module.exports = ProductController;
