@@ -114,7 +114,7 @@ If a request is made to an endpoint that does not exist, the API will respond wi
 To start the server, run the following command in your terminal:
 
 ```bash
-node index.js
+node server.js
 
 ```
 
