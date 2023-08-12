@@ -92,8 +92,18 @@ To update a product, ensure you include the product ID and the specific fields y
 To delete a product, you need to send the product ID as an array in the request body:
 
 ```JSON
-[1,2,3,6]
+[
+"64d6446f8ed0004b71c3ab77",
+"64d6466d8ed0004b71c3ab78",
+"64d6466e8ed0004b71c3ab7a",
+]
 ```
+#### Delete All Product
+
+```bash
+  DELETE /api/product/delete/all
+```
+This route allows clients to delete all products stored in the system's database
 
 #### Error Handling
 
@@ -104,7 +114,7 @@ If a request is made to an endpoint that does not exist, the API will respond wi
 To start the server, run the following command in your terminal:
 
 ```bash
-node index.js
+node server.js
 
 ```
 
